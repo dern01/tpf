@@ -1,10 +1,11 @@
 import React from 'react';
 import './Hero.css';
+import heroBackground from '../../utils/hero-background.png';
 
 const Hero = () => {
   return (
-    <section className="hero">
-      <div className="hero-background">
+    <section className="hero" style={{ backgroundImage: `url(${heroBackground})` }}>
+      <div className="hero-background-overlay">
         <h1 className="hero-bg-text">SŁODYCZE<br/>Z<br/>PASJĄ</h1>
       </div>
       <div className="hero-content">

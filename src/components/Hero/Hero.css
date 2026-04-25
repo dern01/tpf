@@ -2,14 +2,17 @@
   position: relative;
   height: 60vh;
   min-height: 500px;
-  background-color: #6d6a69; /* matching gray-ish background */
+  background-color: #6d6a69; /* fallback */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
 }
 
-.hero-background {
+.hero-background-overlay {
   position: absolute;
   top: 0;
   left: 0;

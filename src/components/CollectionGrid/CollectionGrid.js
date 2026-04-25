@@ -7,25 +7,25 @@ const collections = [
     id: 1,
     title: 'Kolekcja Wiosenna',
     price: '89 PLN',
-    image: 'https://placehold.co/400x400/1e3b26/ffffff?text=Wiosenna',
+    image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=400&auto=format&fit=crop',
   },
   {
     id: 2,
     title: 'Klasyka Gatunku',
     price: '75 PLN',
-    image: 'https://placehold.co/400x400/181818/ffffff?text=Klasyka',
+    image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=400&auto=format&fit=crop',
   },
   {
     id: 3,
     title: 'Egzotyczna Podróż',
     price: '95 PLN',
-    image: 'https://placehold.co/400x400/2a2007/ffffff?text=Egzotyczna',
+    image: 'https://images.unsplash.com/photo-1579954115545-a95591f28bfc?q=80&w=400&auto=format&fit=crop',
   },
   {
     id: 4,
     title: 'Złota Edycja',
     price: '120 PLN',
-    image: 'https://placehold.co/400x400/0f171e/ffffff?text=Złota',
+    image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?q=80&w=400&auto=format&fit=crop',
   }
 ];
 
