@@ -1,0 +1,46 @@
+.footer-section {
+  background-color: #E8D5D5; /* Matches the pinkish footer from design */
+  padding: 4rem 4rem;
+  color: #333;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.footer-content h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.footer-content h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.footer-content p, .footer-social ul li a {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: #555;
+  text-decoration: none;
+}
+
+.footer-social ul {
+  list-style: none;
+}
+
+.footer-social ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-social a:hover {
+  color: var(--primary-color);
+}
