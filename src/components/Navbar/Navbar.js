@@ -17,6 +17,11 @@ const Navbar = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/shop" className={({ isActive }) => (isActive ? 'active' : '')}>
+            Sklep
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/collections" className={({ isActive }) => (isActive ? 'active' : '')}>
             Kolekcje
           </NavLink>
