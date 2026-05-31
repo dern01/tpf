@@ -47,8 +47,9 @@
 
 .pd-main-image {
   width: 100%;
+  height: 100%;
   aspect-ratio: 1;
-  background-color: #f0f0f0; /* Changed background color */
+  object-fit: cover;
   border-radius: 4px;
 }
 
@@ -72,7 +73,7 @@
 }
 
 .pd-collection-label {
-  font-size: 0.8rem; /* Increased font size */
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -82,23 +83,23 @@
 
 .pd-info h1 {
   font-family: var(--font-heading);
-  font-size: 2.6rem; /* Increased font size */
+  font-size: 2.6rem;
   line-height: 1.2;
   color: var(--text-color);
   margin-bottom: 1rem;
 }
 
 .pd-price {
-  font-size: 1.15rem; /* Increased font size */
+  font-size: 1.15rem;
   font-weight: 700;
   color: var(--primary-color);
   margin-bottom: 1.75rem;
 }
 
 .pd-description {
-  font-size: 0.92rem; /* Increased font size */
+  font-size: 0.92rem;
   line-height: 1.8;
-  color: #555; /* Darker text */
+  color: #555;
   margin-bottom: 2.5rem;
 }
 
@@ -184,7 +185,7 @@
   font-size: 1.8rem;
   color: var(--text-color);
   margin-bottom: 2rem;
-  text-align: center; /* Center align heading */
+  text-align: center;
 }
 
 .suggested-grid {
@@ -196,7 +197,7 @@
 .suggested-card {
   cursor: pointer;
   transition: transform 0.2s;
-  text-align: center; /* Center align text */
+  text-align: center;
 }
 
 .suggested-card:hover {
@@ -205,8 +206,9 @@
 
 .suggested-img {
   width: 100%;
+  height: 100%;
   aspect-ratio: 1;
-  background: #f0f0f0; /* Changed background color */
+  object-fit: cover;
   border-radius: 4px;
   margin-bottom: 0.75rem;
 }

@@ -3,32 +3,49 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './Collections.css';
 import { allProducts, categories } from '../data';
 
+const PRODUCTS_PER_PAGE = 9;
+
 const Collections = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const categoryFromQuery = queryParams.get('category');
+  const pageFromQuery = parseInt(queryParams.get('page') || '1', 10);
 
   const [activeCategory, setActiveCategory] = useState(categoryFromQuery || 'Wszystko');
   const [priceMax, setPriceMax] = useState(200);
   const [sortOrder, setSortOrder] = useState('default');
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState(pageFromQuery);
 
   useEffect(() => {
-    if (categoryFromQuery) {
-      setActiveCategory(categoryFromQuery);
-    } else {
-      setActiveCategory('Wszystko');
+    setActiveCategory(categoryFromQuery || 'Wszystko');
+    setActivePage(pageFromQuery);
+  }, [categoryFromQuery, pageFromQuery]);
+
+  const updateURL = (category, page) => {
+    const params = new URLSearchParams();
+    if (category && category !== 'Wszystko') {
+      params.set('category', category);
     }
-  }, [categoryFromQuery]);
+    if (page > 1) {
+      params.set('page', page);
+    }
+    navigate({ search: params.toString() });
+  };
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);
-    navigate(`/collections?category=${encodeURIComponent(category)}`);
+    setActivePage(1);
+    updateURL(category, 1);
   };
 
   const handleProductClick = (id) => {
     navigate(`/product/${id}`);
+  };
+
+  const handlePageChange = (page) => {
+    setActivePage(page);
+    updateURL(activeCategory, page);
   };
 
   const filteredProducts = useMemo(() => {
@@ -56,6 +73,9 @@ const Collections = () => {
 
     return products;
   }, [activeCategory, priceMax, sortOrder]);
+
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE);
+  const paginatedProducts = filteredProducts.slice((activePage - 1) * PRODUCTS_PER_PAGE, activePage * PRODUCTS_PER_PAGE);
 
   return (
     <div className="shop-page">
@@ -103,13 +123,14 @@ const Collections = () => {
 
       <main className="shop-main">
         <div className="products-grid">
-          {filteredProducts.map((product) => (
+          {paginatedProducts.map((product) => (
             <div
               className="product-card"
               key={product.id}
               onClick={() => handleProductClick(product.id)}
             >
-              <div className="product-image-placeholder">
+              <div className="product-image-container">
+                <img src={product.image} alt={product.name} className="product-image" />
                 {product.badge && (
                   <span className="product-badge">{product.badge}</span>
                 )}
@@ -123,19 +144,15 @@ const Collections = () => {
         </div>
 
         <div className="pagination">
-          {[1, 2, 3].map((p) => (
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
             <button
               key={p}
               className={`pagination-btn${activePage === p ? ' active' : ''}`}
-              onClick={() => setActivePage(p)}
+              onClick={() => handlePageChange(p)}
             >
               {p}
             </button>
           ))}
-          <span className="pagination-ellipsis">...</span>
-          <button className="pagination-btn" onClick={() => setActivePage(8)}>
-            8
-          </button>
         </div>
       </main>
     </div>
