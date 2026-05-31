@@ -49,7 +49,7 @@ const Product = () => {
 
       <div className="product-detail">
         <div className="pd-image-section">
-          <div className="pd-main-image" />
+          <img src={product.image} alt={product.name} className="pd-main-image" />
           {product.badge && <span className="pd-badge">{product.badge}</span>}
         </div>
 
@@ -83,7 +83,7 @@ const Product = () => {
         <div className="suggested-grid">
           {suggestedProducts.map((p) => (
             <div className="suggested-card" key={p.id} onClick={() => handleSuggestedProductClick(p.id)}>
-              <div className="suggested-img" />
+              <img src={p.image} alt={p.name} className="suggested-img" />
               <p className="suggested-name">{p.name}</p>
               <p className="suggested-price">{p.price}</p>
             </div>
