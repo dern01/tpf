@@ -117,8 +117,6 @@ const Collections = () => {
             <option value="newest">Najnowsze</option>
           </select>
         </div>
-
-        <button className="btn-filter" onClick={() => {}}>FILTRUJ</button>
       </aside>
 
       <main className="shop-main">
