@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Collections.css';
 
-const products = [
-  { id: 1, name: 'Praliny Różane', price: '85 zł', badge: null },
-  { id: 2, name: 'Złota Kolekcja', price: '140 zł', badge: 'NOWOŚĆ' },
-  { id: 3, name: 'Karmel i Sól', price: '65 zł', badge: null },
-  { id: 4, name: 'Klasyczne Trufle', price: '70 zł', badge: null },
-  { id: 5, name: 'Biała z Maliną', price: '45 zł', badge: null },
-  { id: 6, name: 'Ciemna 85%', price: '38 zł', badge: null },
-  { id: 7, name: 'Orzechy Laskowe', price: '55 zł', badge: null },
-  { id: 8, name: 'Degustacja', price: '180 zł', badge: null },
-  { id: 9, name: 'Matcha & Yuzu', price: '95 zł', badge: null },
+const allProducts = [
+  { id: 1, name: 'Praliny Różane', price: 85, badge: null, category: 'Praliny', new: false },
+  { id: 2, name: 'Złota Kolekcja', price: 140, badge: 'NOWOŚĆ', category: 'Nowe Kolekcje', new: true },
+  { id: 3, name: 'Karmel i Sól', price: 65, badge: null, category: 'Karmelki', new: false },
+  { id: 4, name: 'Klasyczne Trufle', price: 70, badge: null, category: 'Trufle', new: false },
+  { id: 5, name: 'Biała z Maliną', price: 45, badge: null, category: 'Czekolady', new: false },
+  { id: 6, name: 'Ciemna 85%', price: 38, badge: null, category: 'Czekolady', new: false },
+  { id: 7, name: 'Orzechy Laskowe', price: 55, badge: null, category: 'Praliny', new: false },
+  { id: 8, name: 'Degustacja', price: 180, badge: null, category: 'Zestawy Prezentowe', new: false },
+  { id: 9, name: 'Matcha & Yuzu', price: 95, badge: 'NOWOŚĆ', category: 'Nowe Kolekcje', new: true },
 ];
 
 const categories = [
@@ -25,8 +26,40 @@ const categories = [
 
 const Collections = () => {
   const [activeCategory, setActiveCategory] = useState('Wszystko');
-  const [priceMax, setPriceMax] = useState(150);
+  const [priceMax, setPriceMax] = useState(200);
+  const [sortOrder, setSortOrder] = useState('default');
   const [activePage, setActivePage] = useState(1);
+  const navigate = useNavigate();
+
+  const handleProductClick = (id) => {
+    navigate(`/product/${id}`);
+  };
+
+  const filteredProducts = useMemo(() => {
+    let products = allProducts;
+
+    if (activeCategory !== 'Wszystko') {
+      products = products.filter((p) => p.category === activeCategory);
+    }
+
+    products = products.filter((p) => p.price <= priceMax);
+
+    switch (sortOrder) {
+      case 'price-asc':
+        products.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-desc':
+        products.sort((a, b) => b.price - a.price);
+        break;
+      case 'newest':
+        products.sort((a, b) => b.new - a.new);
+        break;
+      default:
+        break;
+    }
+
+    return products;
+  }, [activeCategory, priceMax, sortOrder]);
 
   return (
     <div className="shop-page">
@@ -61,7 +94,7 @@ const Collections = () => {
 
         <div className="sidebar-section sidebar-sort">
           <h4>Sortuj</h4>
-          <select defaultValue="default">
+          <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
             <option value="default">Domyślnie</option>
             <option value="price-asc">Cena: rosnąco</option>
             <option value="price-desc">Cena: malejąco</option>
@@ -69,13 +102,17 @@ const Collections = () => {
           </select>
         </div>
 
-        <button className="btn-filter">FILTRUJ</button>
+        <button className="btn-filter" onClick={() => {}}>FILTRUJ</button>
       </aside>
 
       <main className="shop-main">
         <div className="products-grid">
-          {products.map((product) => (
-            <div className="product-card" key={product.id}>
+          {filteredProducts.map((product) => (
+            <div
+              className="product-card"
+              key={product.id}
+              onClick={() => handleProductClick(product.id)}
+            >
               <div className="product-image-placeholder">
                 {product.badge && (
                   <span className="product-badge">{product.badge}</span>
@@ -83,7 +120,7 @@ const Collections = () => {
               </div>
               <div className="product-card-info">
                 <p className="product-card-name">{product.name}</p>
-                <p className="product-card-price">{product.price}</p>
+                <p className="product-card-price">{product.price} zł</p>
               </div>
             </div>
           ))}

@@ -1,5 +1,18 @@
 import React, { useState } from 'react';
-import './Collection.css';
+import { useParams } from 'react-router-dom';
+import './Product.css';
+
+const products = [
+  { id: 1, name: 'Praliny Różane', price: '85 zł', badge: null, collection: 'Edycje Limitowane', description: 'Delikatne praliny z nadzieniem o smaku różanym, otoczone białą czekoladą.' },
+  { id: 2, name: 'Złota Kolekcja', price: '140 zł', badge: 'NOWOŚĆ', collection: 'Kolekcje Premium', description: 'Ekskluzywny zestaw pralin w złotych opakowaniach, idealny na prezent.' },
+  { id: 3, name: 'Karmel i Sól', price: '65 zł', badge: null, collection: 'Klasyki', description: 'Połączenie słodkiego karmelu i szczypty soli morskiej w mlecznej czekoladzie.' },
+  { id: 4, name: 'Klasyczne Trufle', price: '70 zł', badge: null, collection: 'Klasyki', description: 'Aksamitne trufle z ciemnej czekolady, obtoczone w kakao.' },
+  { id: 5, name: 'Biała z Maliną', price: '45 zł', badge: null, collection: 'Czekolady', description: 'Tabliczka białej czekolady z liofilizowanymi malinami.' },
+  { id: 6, name: 'Ciemna 85%', price: '38 zł', badge: null, collection: 'Czekolady', description: 'Intensywna w smaku tabliczka ciemnej czekolady o zawartości 85% kakao.' },
+  { id: 7, name: 'Orzechy Laskowe', price: '55 zł', badge: null, collection: 'Praliny', description: 'Praliny z całymi orzechami laskowymi w mlecznej czekoladzie.' },
+  { id: 8, name: 'Degustacja', price: '180 zł', badge: null, collection: 'Zestawy Prezentowe', description: 'Zestaw degustacyjny zawierający różne rodzaje naszych pralin i czekolad.' },
+  { id: 9, name: 'Matcha & Yuzu', price: '95 zł', badge: null, collection: 'Edycje Limitowane', description: 'Egzotyczne połączenie japońskiej herbaty matcha i cytrusowego yuzu.' },
+];
 
 const TABS = ['Opis i Skład', 'Alergeny', 'Przechowywanie'];
 
@@ -19,34 +32,36 @@ const suggestedProducts = [
   { id: 4, name: 'Ciemna Sól', price: '95 PLN' },
 ];
 
-const Collection = () => {
+const Product = () => {
+  const { id } = useParams();
+  const product = products.find((p) => p.id === parseInt(id, 10));
   const [activeTab, setActiveTab] = useState('Opis i Skład');
+
+  if (!product) {
+    return <div>Produkt nie znaleziony</div>;
+  }
 
   return (
     <div className="collections-page">
       <nav className="breadcrumb">
         <span>Kolekcje</span>
         <span className="breadcrumb-sep">›</span>
-        <span>Edycje Limitowane</span>
+        <span>{product.collection}</span>
         <span className="breadcrumb-sep">›</span>
-        <span className="bc-current">Aksamitna Malina</span>
+        <span className="bc-current">{product.name}</span>
       </nav>
 
       <div className="product-detail">
         <div className="pd-image-section">
           <div className="pd-main-image" />
-          <span className="pd-badge">NOWOŚĆ</span>
+          {product.badge && <span className="pd-badge">{product.badge}</span>}
         </div>
 
         <div className="pd-info">
-          <p className="pd-collection-label">Kolekcja Wiosenna</p>
-          <h1>Aksamitna Malina</h1>
-          <p className="pd-price">145 PLN / zestaw 12 szt.</p>
-          <p className="pd-description">
-            Subtelne połączenie intensywnej, gorzkiej czekolady 70% z sercem z
-            aksamitnego ganache ze świeżych malin. Każda pralina tworzona jest
-            ręcznie, z szacunkiem dla tradycyjnego rzemiosła cukierniczego.
-          </p>
+          <p className="pd-collection-label">{product.collection}</p>
+          <h1>{product.name}</h1>
+          <p className="pd-price">{product.price} / zestaw 12 szt.</p>
+          <p className="pd-description">{product.description}</p>
 
           <div className="pd-tabs">
             {TABS.map((tab) => (
@@ -83,4 +98,4 @@ const Collection = () => {
   );
 };
 
-export default Collection;
+export default Product;

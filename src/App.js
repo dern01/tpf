@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home';
-import ProductPage from './pages/ProductPage';
 import Workshops from './pages/Workshops';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import Footer from './components/Footer/Footer';
 import Collections from "./pages/Collections";
+import Product from "./pages/Product";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/collections" element={<Collections />} />
-          <Route path="/product/:id" element={<ProductPage />} />
+          <Route path="/product/:id" element={<Product />} />
           <Route path="/workshops" element={<Workshops />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
