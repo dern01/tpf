@@ -1,18 +1,7 @@
-import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useState, useMemo } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Product.css';
-
-const products = [
-  { id: 1, name: 'Praliny Różane', price: '85 zł', badge: null, collection: 'Edycje Limitowane', description: 'Delikatne praliny z nadzieniem o smaku różanym, otoczone białą czekoladą.' },
-  { id: 2, name: 'Złota Kolekcja', price: '140 zł', badge: 'NOWOŚĆ', collection: 'Kolekcje Premium', description: 'Ekskluzywny zestaw pralin w złotych opakowaniach, idealny na prezent.' },
-  { id: 3, name: 'Karmel i Sól', price: '65 zł', badge: null, collection: 'Klasyki', description: 'Połączenie słodkiego karmelu i szczypty soli morskiej w mlecznej czekoladzie.' },
-  { id: 4, name: 'Klasyczne Trufle', price: '70 zł', badge: null, collection: 'Klasyki', description: 'Aksamitne trufle z ciemnej czekolady, obtoczone w kakao.' },
-  { id: 5, name: 'Biała z Maliną', price: '45 zł', badge: null, collection: 'Czekolady', description: 'Tabliczka białej czekolady z liofilizowanymi malinami.' },
-  { id: 6, name: 'Ciemna 85%', price: '38 zł', badge: null, collection: 'Czekolady', description: 'Intensywna w smaku tabliczka ciemnej czekolady o zawartości 85% kakao.' },
-  { id: 7, name: 'Orzechy Laskowe', price: '55 zł', badge: null, collection: 'Praliny', description: 'Praliny z całymi orzechami laskowymi w mlecznej czekoladzie.' },
-  { id: 8, name: 'Degustacja', price: '180 zł', badge: null, collection: 'Zestawy Prezentowe', description: 'Zestaw degustacyjny zawierający różne rodzaje naszych pralin i czekolad.' },
-  { id: 9, name: 'Matcha & Yuzu', price: '95 zł', badge: null, collection: 'Edycje Limitowane', description: 'Egzotyczne połączenie japońskiej herbaty matcha i cytrusowego yuzu.' },
-];
+import { allProducts } from '../data';
 
 const TABS = ['Opis i Skład', 'Alergeny', 'Przechowywanie'];
 
@@ -25,28 +14,35 @@ const TAB_CONTENT = {
     'Przechowywać w temperaturze 12–16°C, z dala od źródeł ciepła i bezpośredniego światła słonecznego. Po otwarciu spożyć w ciągu 7 dni. Nie przechowywać w lodówce — kondensacja wilgoci może negatywnie wpłynąć na jakość czekolady.',
 };
 
-const suggestedProducts = [
-  { id: 1, name: 'Zielona Pistacja', price: '120 PLN' },
-  { id: 2, name: 'Płynny Karmel', price: '135 PLN' },
-  { id: 3, name: 'Box Klasyczny', price: '250 PLN' },
-  { id: 4, name: 'Ciemna Sól', price: '95 PLN' },
-];
-
 const Product = () => {
   const { id } = useParams();
-  const product = products.find((p) => p.id === parseInt(id, 10));
+  const navigate = useNavigate();
+  const product = allProducts.find((p) => p.id === parseInt(id, 10));
   const [activeTab, setActiveTab] = useState('Opis i Skład');
+
+  const suggestedProducts = useMemo(() => {
+    const shuffled = [...allProducts].sort(() => 0.5 - Math.random());
+    return shuffled.filter((p) => p.id !== product.id).slice(0, 4);
+  }, [product]);
 
   if (!product) {
     return <div>Produkt nie znaleziony</div>;
   }
 
+  const handleBreadcrumbClick = (category) => {
+    navigate(`/collections?category=${encodeURIComponent(category)}`);
+  };
+
+  const handleSuggestedProductClick = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <div className="collections-page">
       <nav className="breadcrumb">
-        <span>Kolekcje</span>
+        <span onClick={() => handleBreadcrumbClick('Wszystko')}>Kolekcje</span>
         <span className="breadcrumb-sep">›</span>
-        <span>{product.collection}</span>
+        <span onClick={() => handleBreadcrumbClick(product.collection)}>{product.collection}</span>
         <span className="breadcrumb-sep">›</span>
         <span className="bc-current">{product.name}</span>
       </nav>
@@ -86,7 +82,7 @@ const Product = () => {
         <h2>Sugerowane Produkty</h2>
         <div className="suggested-grid">
           {suggestedProducts.map((p) => (
-            <div className="suggested-card" key={p.id}>
+            <div className="suggested-card" key={p.id} onClick={() => handleSuggestedProductClick(p.id)}>
               <div className="suggested-img" />
               <p className="suggested-name">{p.name}</p>
               <p className="suggested-price">{p.price}</p>

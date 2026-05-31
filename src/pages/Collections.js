@@ -1,35 +1,31 @@
-import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Collections.css';
-
-const allProducts = [
-  { id: 1, name: 'Praliny Różane', price: 85, badge: null, category: 'Praliny', new: false },
-  { id: 2, name: 'Złota Kolekcja', price: 140, badge: 'NOWOŚĆ', category: 'Nowe Kolekcje', new: true },
-  { id: 3, name: 'Karmel i Sól', price: 65, badge: null, category: 'Karmelki', new: false },
-  { id: 4, name: 'Klasyczne Trufle', price: 70, badge: null, category: 'Trufle', new: false },
-  { id: 5, name: 'Biała z Maliną', price: 45, badge: null, category: 'Czekolady', new: false },
-  { id: 6, name: 'Ciemna 85%', price: 38, badge: null, category: 'Czekolady', new: false },
-  { id: 7, name: 'Orzechy Laskowe', price: 55, badge: null, category: 'Praliny', new: false },
-  { id: 8, name: 'Degustacja', price: 180, badge: null, category: 'Zestawy Prezentowe', new: false },
-  { id: 9, name: 'Matcha & Yuzu', price: 95, badge: 'NOWOŚĆ', category: 'Nowe Kolekcje', new: true },
-];
-
-const categories = [
-  'Wszystko',
-  'Nowe Kolekcje',
-  'Praliny',
-  'Trufle',
-  'Czekolady',
-  'Karmelki',
-  'Zestawy Prezentowe',
-];
+import { allProducts, categories } from '../data';
 
 const Collections = () => {
-  const [activeCategory, setActiveCategory] = useState('Wszystko');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const queryParams = new URLSearchParams(location.search);
+  const categoryFromQuery = queryParams.get('category');
+
+  const [activeCategory, setActiveCategory] = useState(categoryFromQuery || 'Wszystko');
   const [priceMax, setPriceMax] = useState(200);
   const [sortOrder, setSortOrder] = useState('default');
   const [activePage, setActivePage] = useState(1);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (categoryFromQuery) {
+      setActiveCategory(categoryFromQuery);
+    } else {
+      setActiveCategory('Wszystko');
+    }
+  }, [categoryFromQuery]);
+
+  const handleCategoryClick = (category) => {
+    setActiveCategory(category);
+    navigate(`/collections?category=${encodeURIComponent(category)}`);
+  };
 
   const handleProductClick = (id) => {
     navigate(`/product/${id}`);
@@ -71,7 +67,7 @@ const Collections = () => {
               <li
                 key={cat}
                 className={activeCategory === cat ? 'active' : ''}
-                onClick={() => setActiveCategory(cat)}
+                onClick={() => handleCategoryClick(cat)}
               >
                 {cat}
               </li>
