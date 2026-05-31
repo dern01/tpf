@@ -8,14 +8,14 @@ const workshops = [
     title: 'Warsztaty Indywidualne',
     description: 'Zgłębiaj tajniki sztuki cukierniczej pod okiem mistrza.',
     buttonText: 'Zarezerwuj termin',
-    image: 'https://images.unsplash.com/photo-1621237279374-2c49d21c33ea?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1519733870-f96bef9bc85f?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   },
   {
     id: 2,
     title: 'Warsztaty Dla Par',
     description: 'Słodkie chwile we dwoje. Stwórzcie własne kompozycje smakowe.',
     buttonText: 'Zarezerwuj termin',
-    image: 'https://images.unsplash.com/photo-1542841791-1925b02a2bf8?q=80&w=600&auto=format&fit=crop'
+    image: 'https://images.unsplash.com/photo-1630507103234-00d3e621cae2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
   }
 ];
 

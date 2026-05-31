@@ -1,8 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 import heroBackground from '../../assets/img/hero-background.png';
 
 const Hero = () => {
+  const navigate = useNavigate();
+
+  const handleDiscoverClick = () => {
+    navigate('/collections');
+  };
+
   return (
     <section className="hero" style={{ backgroundImage: `url(${heroBackground})` }}>
       <div className="hero-background-overlay">
@@ -14,7 +21,9 @@ const Hero = () => {
           Ręcznie tworzone praliny, które pobudzają zmysły. Odkryj<br/>
           bogactwo smaków zamknięte w belgijskiej czekoladzie.
         </p>
-        <button className="btn-primary">Odkryj nasze praliny</button>
+        <button className="btn-primary" onClick={handleDiscoverClick}>
+          Odkryj nasze praliny
+        </button>
       </div>
     </section>
   );

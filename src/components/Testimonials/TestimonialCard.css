@@ -1,5 +1,5 @@
 .testimonial-card {
-  background-color: transparent;
+  background-color: #fdfafb; /* Slight background added */
   border: 1px solid rgba(144, 66, 86, 0.1); /* light tint of primary color */
   border-radius: 16px;
   padding: 2.5rem 2rem;

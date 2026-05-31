@@ -1,8 +1,14 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    navigate('/contact');
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -13,7 +19,7 @@ const Navbar = () => {
       <ul className="navbar-links">
         <li>
           <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')} end>
-            Główna
+            Sklep
           </NavLink>
         </li>
         <li>
@@ -43,7 +49,9 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="navbar-actions">
-        <button className="btn-secondary">Zapytaj o produkt</button>
+        <button className="btn-secondary" onClick={handleContactClick}>
+          Zapytaj o produkt
+        </button>
       </div>
     </nav>
   );
