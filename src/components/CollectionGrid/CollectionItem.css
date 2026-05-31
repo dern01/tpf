@@ -4,6 +4,7 @@
   align-items: center;
   text-align: center;
   transition: transform 0.3s ease;
+  cursor: pointer; /* Added cursor pointer to indicate it's clickable */
 }
 
 .collection-item:hover {

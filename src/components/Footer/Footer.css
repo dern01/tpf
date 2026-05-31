@@ -1,7 +1,7 @@
 .footer-section {
-  background-color: #E8D5D5; /* Matches the pinkish footer from design */
+  background-color: #F8EAE5; /* Updated background color to match design */
   padding: 4rem 4rem;
-  color: #333;
+  color: #5C5552; /* Updated base text color */
 }
 
 .footer-content {
@@ -15,21 +15,25 @@
 
 .footer-content h3 {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.5rem; /* Increased size */
   margin-bottom: 1rem;
+  font-weight: 500; /* Adjusted weight */
+  color: #333;
 }
 
 .footer-content h4 {
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-family: var(--font-heading); /* Changed font to serif */
+  font-size: 1rem; /* Increased size */
+  font-weight: 500;
   margin-bottom: 1rem;
-  color: #555;
+  color: #333;
 }
 
 .footer-content p, .footer-social ul li a {
-  font-size: 0.8rem;
+  font-family: var(--font-heading); /* Changed font to serif */
+  font-size: 0.9rem; /* Increased size */
   line-height: 1.6;
-  color: #555;
+  color: #5C5552;
   text-decoration: none;
 }
 
